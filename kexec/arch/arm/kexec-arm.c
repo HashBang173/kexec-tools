@@ -93,6 +93,7 @@ int arch_process_options(int argc, char **argv)
 
 const struct arch_map_entry arches[] = {
 	{ "arm", KEXEC_ARCH_ARM },
+	{ "aarch64", KEXEC_ARCH_ARM },
 	{ NULL, 0 },
 };
 
