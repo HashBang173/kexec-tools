@@ -170,7 +170,7 @@ static int tegra_add_extra_regs(void *dtb_buf)
 }
 
 const struct arm_mach arm_mach_tegra = {
-    .boardnames = { "shieldtablet", NULL },
+    .boardnames = { "shieldtablet", "wx_na_wf", "wx_na_do", "wx_un_do", "wx_un_mo", NULL },
     .choose_dtb = tegra_choose_dtb,
     .add_extra_regs = tegra_add_extra_regs
 };
