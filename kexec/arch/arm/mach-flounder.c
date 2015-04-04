@@ -6,7 +6,7 @@
 #include "../../fs2dt.h"
 #include "mach.h"
 
-// The assumption is that most Tegra soc dtbs have nvidia,boardids and this will work in general.
+// The assumption is that most flounder soc dtbs have nvidia-boardids and this will work in general.
 
 #define INVALID_REV_ID 0xFFFFFFFF
 
@@ -30,12 +30,12 @@ static uint32_t tegra_dtb_compatible(void *dtb, struct tegra_id *devid, struct t
         return 0;
     }
 
-    prop = fdt_getprop(dtb, root_offset, "nvidia,boardids", &len);
+    prop = fdt_getprop(dtb, root_offset, "nvidia-boardids", &len);
     if (!prop || len <= 0) {
-        printf("DTB: nvidia,boardids entry not found\n");
+        printf("DTB: nvidia-boardids entry not found\n");
         return 0;
     } else if (len < (int)sizeof(struct tegra_id)) {
-        printf("DTB: nvidia,boardids entry size mismatch (%d != %d)\n",
+        printf("DTB: nvidia-boardids entry size mismatch (%d != %d)\n",
             len, sizeof(struct tegra_id));
         return 0;
     }
@@ -62,10 +62,10 @@ static int tegra_choose_dtb(const char *dtb_img, off_t dtb_len, char **dtb_buf, 
     uint32_t bestmatch_tag_size;
     uint32_t bestmatch_board_rev_id = INVALID_REV_ID;
 
-    f = fopen("/proc/device-tree/nvidia,boardids", "r");
+    f = fopen("/proc/device-tree/nvidia-boardids", "r");
     if(!f)
     {
-        fprintf(stderr, "DTB: Couldn't open /proc/device-tree/nvidia,boardids!\n");
+        fprintf(stderr, "DTB: Couldn't open /proc/device-tree/nvidia-boardids!\n");
         return 0;
     }
 
@@ -169,8 +169,8 @@ static int tegra_add_extra_regs(void *dtb_buf)
     return 0;
 }
 
-const struct arm_mach arm_mach_tegra = {
-    .boardnames = { "shieldtablet", "wx_na_wf", "wx_na_do", "wx_un_do", "wx_un_mo", NULL },
+const struct arm_mach arm_mach_flounder = {
+    .boardnames = { "flounder", NULL },
     .choose_dtb = tegra_choose_dtb,
     .add_extra_regs = tegra_add_extra_regs
 };
